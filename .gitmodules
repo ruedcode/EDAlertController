@@ -1,0 +1,3 @@
+[submodule "EDLocalizator"]
+	path = EDLocalizator
+	url = git@github.com:ruedcode/EDLocalizator.git
