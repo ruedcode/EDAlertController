@@ -9,15 +9,15 @@
 import UIKit
 import EDLocalizator
 
-enum AlertViewType : String {
+public enum AlertViewType : String {
 	case warning = "warning"
 	case error = "error"
 	case info = "info"
 }
 
-class AlertHelper {
+public class AlertHelper {
 
-	static func alertWithTitle(_ title:String, message: String, controller:UIViewController, buttons:Array<String>?, completion:((UIAlertAction, UIViewController, Int) -> Void)?)->UIAlertController {
+	public static func alertWithTitle(_ title:String, message: String, controller:UIViewController, buttons:Array<String>?, completion:((UIAlertAction, UIViewController, Int) -> Void)?)->UIAlertController {
 		let alert = UIAlertController(title: title.localized, message: message.localized, preferredStyle: .alert)
 		if let aButtons = buttons {
 			for (index, text) in aButtons.enumerated() {
@@ -44,16 +44,16 @@ class AlertHelper {
 }
 
 extension UIViewController {
-	func alertWithType(type: AlertViewType, message: String){
+	public func alertWithType(type: AlertViewType, message: String){
 		alertWithType(type: type, message: message, buttons: nil, completion: nil)
 	}
 
-	func alertWithType(type: AlertViewType, message: String, buttons:Array<String>?, completion:((UIAlertAction, UIViewController, Int) -> Void)?)  {
+	public  func alertWithType(type: AlertViewType, message: String, buttons:Array<String>?, completion:((UIAlertAction, UIViewController, Int) -> Void)?)  {
 		alertWithTitle(alertTitleWithType(type: type), message: message, buttons: buttons, completion: completion)
 
 	}
 
-	func alertWithTitle(_ title:String, message: String, buttons:Array<String>?, completion:((UIAlertAction, UIViewController, Int) -> Void)?) {
+	public func alertWithTitle(_ title:String, message: String, buttons:Array<String>?, completion:((UIAlertAction, UIViewController, Int) -> Void)?) {
 		let alert = AlertHelper.alertWithTitle(title, message: message, controller: self, buttons: buttons) { (action, controller, index) in
 			if( completion != nil) {
 				completion!(action, self, index)
@@ -62,11 +62,11 @@ extension UIViewController {
 		present(alert, animated: true, completion: nil)
 	}
 
-	func alertWithError(_ error: Error) {
+	public func alertWithError(_ error: Error) {
 		alertWithType(type: .error, message: error.localizedDescription, buttons: nil, completion: nil)
 	}
 
-	func alertTitleWithType(type: AlertViewType) -> String {
+	public func alertTitleWithType(type: AlertViewType) -> String {
 		return "Alert.Title.\(type.rawValue)"
 	}
 }
